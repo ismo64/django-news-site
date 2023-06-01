@@ -1,0 +1,9 @@
+@import url('../../bootstrap/css/bootstrap.css');
+
+body {
+    background-color: #ccc;
+}
+
+.errorlist {
+    color: red;
+}

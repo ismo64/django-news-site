@@ -1,0 +1,36 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+
+<div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-header">
+                Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+            </div>
+            <div class="media" style="display: flex;">
+                <div class="media-photo">
+                    {% if item.photo %}
+                    <img src="{{ item.photo.url }}" alt="photo" width="350" height="350">
+                    {% else %}
+                    <h6>Фото нет</h6>
+                    {% endif %}
+                </div>
+                <div class="media-body">
+                    <div class="card-body">
+                        <h5 class="card-title {% cycle 'text-success' 'text-danger' %}">
+                            {{ item.title }}
+                        </h5>
+                        {% autoescape off %}
+                        <p class="card-text">{{ item.content }}</p>
+                        {% endautoescape %}
+                        <a href="{% url 'home' %}" class="btn btn-primary">Назад</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-body-secondary">
+                {{ item.created_at|date:'Y-m-d' }}
+            </div>
+        </div>
+</div>
+
+{% endblock %}

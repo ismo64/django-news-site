@@ -1,0 +1,87 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+<div class="col-md-8">
+    {% for item in page_obj %}
+        <div class="card mb-3">
+            <div class="card-header">
+                Категория: <a href="{{ item.category.get_absolute_url }}">{{ item.category }}</a>
+            </div>
+            <div class="media" style="display: flex;">
+                <div class="media-photo">
+                    {% if item.photo %}
+                    <img src="{{ item.photo.url }}" alt="photo" width="350" height="350">
+                    {% else %}
+                    <h6>Фото нет</h6>
+                    {% endif %}
+                </div>
+                <div class="media-body">
+                    <div class="card-body">
+                        <h5 class="card-title {% cycle 'text-success' 'text-danger' %}">
+                            {{ item.title }}
+                        </h5>
+                        {% autoescape off %}
+                        <p class="card-text">{{ item.content|truncatewords:60|linebreaks }}</p>
+                        {% endautoescape %}
+                        <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Читать полностью</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-body-secondary">
+                {{ item.created_at|date:'Y-m-d' }}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagination %}
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">Previous</a>
+            </li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+            {% if i == page_obj.number %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">{{ i }}</a>
+                </li>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>   
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        {% endif %}  
+    </ul>
+{% endblock %}
+
+
+
+<!-- <nav aria-label="...">
+              <ul class="pagination">
+                <li class="page-item disabled">
+                  <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav> -->
