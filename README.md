@@ -1,4 +1,5 @@
-# This is News Site
+# Новостной сайт
 
-## You can read news, add news, register/authorize and also add your own news (after you register)
-### Screenshots attached in the `screenshots` folder 
+## Данное веб-приложение разработано на фреймворке Django. Оно является является новостным сайтом. В нем мы можем читать новости, проходить регистрацию/авторизацию, а также добавлять свои собственные новости (после регистрации/авторизации).
+
+### Интерфейс веб-приложения вы можете посмотреть в папке screenshots 
